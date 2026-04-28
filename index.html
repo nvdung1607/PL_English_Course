@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 1: Lesson 5: Listening</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        /* ================= GLOBAL STYLES ================= */
+        :root {
+            --primary-blue: #0d6efd; 
+            --dark-blue: #084298; 
+            --accent-yellow: #ffc107; 
+            --light-bg: #f8f9fa; 
+            --text-color: #333;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 24px;
+            background-color: #e8f2ff; 
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, button, input, textarea {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+            background-color: var(--white);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .brand-container {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .site-title {
+            font-weight: 700;
+            font-size: 1.4em;
+            color: var(--primary-blue);
+            margin: 0;
+            font-style: italic;
+        }
+
+        .site-subtitle {
+            font-size: 1em;
+            color: var(--primary-blue);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-style: italic;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-pill {
+            text-decoration: none;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .nav-pill:hover { background-color: #e2e6ea; }
+        .nav-pill.active { background-color: var(--primary-blue); color: var(--white); }
+
+        /* ================= MAIN CONTAINER ================= */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            min-height: 60vh;
+        }
+
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= HOME HERO ================= */
+        .hero-section {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 80px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.3);
+            margin: 0 20px;
+        }
+
+        .hero-title { font-size: 2.5em; font-weight: 700; font-style: italic; }
+        .hero-subtitle { font-size: 1.2em; font-style: italic; margin-bottom: 30px; }
+        .hero-highlight { color: var(--accent-yellow); font-size: 1.8em; font-weight: bold; font-style: italic; margin-bottom: 50px; }
+
+        .btn-yellow {
+            background-color: var(--accent-yellow);
+            color: #333;
+            font-size: 1.1em;
+            padding: 15px 50px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+            font-style: italic;
+        }
+        .btn-yellow:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6); }
+
+        .content-card {
+            background-color: var(--white);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin: 0 20px;
+        }
+
+        /* ================= LEARNING NAV ================= */
+        .sub-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+
+        .sub-nav button {
+            font-size: 1.1em;
+            padding: 10px 25px;
+            border: 2px solid var(--primary-blue);
+            background: transparent;
+            color: var(--primary-blue);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .sub-nav button.active, .sub-nav button:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-radius: 40px;
+            font-style: italic;
+        }
+
+        .hidden { display: none !important; }
+        
+        .btn-blue {
+            font-size: 1em;
+            padding: 12px 35px;
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn-blue:hover { background-color: var(--dark-blue); }
+
+        .answer-box {
+            display: none;
+            background-color: #f8f9fa;
+            border-left: 5px solid var(--primary-blue);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .vocab-box {
+            background-color: #fff3cd;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px dashed #ffc107;
+        }
+
+        /* ================= TEACHERS ================= */
+        .teacher-grid { display: flex; flex-direction: column; gap: 40px; }
+        .teacher-card {
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            text-align: left;
+        }
+        .teacher-card:nth-child(even) { flex-direction: row-reverse; }
+        .teacher-img {
+            width: 250px;
+            min-width: 250px;
+            height: 350px;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--primary-blue);
+            font-style: italic;
+        }
+
+        /* ================= ACTIVITIES ================= */
+        .activity-card {
+            display: block;
+            padding: 30px;
+            background: #e3f2fd;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: 0.3s;
+        }
+        .activity-card:hover { transform: scale(1.02); }
+        .activity-card h3 { font-style: italic; }
+
+        /* ================= FOOTER ================= */
+        footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 60px 40px;
+            margin-top: 60px;
+            border-top-left-radius: 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-col h3 { color: var(--accent-yellow); font-style: italic; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
+        .footer-col p, .footer-col a { color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 10px; font-style: italic; margin-bottom: 15px; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand-container" onclick="navigateTo('home')">
+            <h1 class="site-title">Unit 1: Lesson 5: Listening</h1>
+            <p class="site-subtitle">📕 Learn with Joy</p>
+        </div>
+        <nav>
+            <a id="nav-pill-home" class="nav-pill active" onclick="navigateTo('home')">Home</a>
+            <a id="nav-pill-about" class="nav-pill" onclick="navigateTo('about')">About Us</a>
+            <a id="nav-pill-learning" class="nav-pill" onclick="navigateTo('learning')">Learning</a>
+            <a id="nav-pill-activities" class="nav-pill" onclick="navigateTo('activities')">Activities</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        
+        <section id="home" class="page-section active">
+            <div class="hero-section">
+                <h2 class="hero-title">Welcome to Our Learning Space!</h2>
+                <p class="hero-subtitle">A spacious, interactive environment to master your English listening skills.</p>
+                <div class="hero-highlight">Unit 1 : Lesson 5 : Listening</div>
+                <button class="btn-yellow" onclick="navigateTo('learning')">🚀 Start Learning</button>
+            </div>
+        </section>
+
+        <section id="about" class="page-section">
+            <div class="content-card">
+                <h2 style="font-style: italic; color: var(--primary-blue);">Meet Our Expert Teachers</h2>
+                <div class="teacher-grid">
+                    <div class="teacher-card">
+                        <div class="teacher-img">Photo Here</div>
+                        <div class="teacher-info">
+                            <h3>Mr. Hoang Ky Anh</h3>
+                            <p>📱 0974737262 | ✉️ 20231655@eaut.edu.vn</p>
+                            <p><em>"Discipline creates excellence"</em></p>
+                            <p>Hello! I am Hoang Ky Anh. With over 5 years of experience teaching academic English and IELTS/TOEIC preparation, I understand the obstacles Vietnamese students often face. Let's turn pressure into motivation to reach further together!</p>
+                        </div>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-img">Photo Here</div>
+                        <div class="teacher-info">
+                            <h3>Ms. Trinh Phuong Linh</h3>
+                            <p>📱 0918825844 | ✉️ 20232528@eaut.edu.vn</p>
+                            <p><em>"Break the barrier, speak confidently"</em></p>
+                            <p>Hello! I am Trinh Phuong Linh. My biggest passion is helping students overcome the fear of making mistakes when communicating. If you are looking for the confidence to express yourself, I am here to help you create that!</p>
+                        </div>
+                    </div>
+                    <div class="teacher-card">
+                        <div class="teacher-img">Photo Here</div>
+                        <div class="teacher-info">
+                            <h3>Ms. Nguyen Quynh Nga</h3>
+                            <p>📱 0987364177 | ✉️ 2023178@edut.edu.vn</p>
+                            <p><em>"Ignite the love for language"</em></p>
+                            <p>Hello parents and dear students! I am Nguyen Quynh Nga. By using experiential learning methods, I strive to provide a fun, safe, and friendly learning environment. Let me accompany your child on the journey to discover this wonderful world of English naturally!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="learning" class="page-section">
+            <div class="content-card">
+                <div class="sub-nav">
+                    <button id="nav-warmup" class="active" onclick="switchLesson('warmup')">Warm-Up</button>
+                    <button id="nav-video" onclick="switchLesson('video')">Video Lesson</button>
+                    <button id="nav-prelistening" onclick="switchLesson('prelistening')">Pre-listening</button>
+                    <button id="nav-whilelistening" onclick="switchLesson('whilelistening')">While-listening</button>
+                    <button id="nav-postlistening" onclick="switchLesson('postlistening')">Post-listening</button>
+                    <button id="nav-wrapup" onclick="switchLesson('wrapup')">Wrap-up</button>
+                    <button id="nav-homework" onclick="switchLesson('homework')">Homework</button>
+                </div>
+
+                <div id="lesson-warmup" class="lesson-content">
+                    <h2>Let's think! 🤔</h2>
+                    <p>Before we start, think about the following question and post your thoughts in the class discussion forum:</p>
+                    <blockquote style="color: var(--primary-blue); font-style: italic;">
+                        "What is the most important thing your parents do to help you with your studies?"
+                    </blockquote>
+                    <p>Suggested ideas:</p>
+                    <ul>
+                        <li>They provide me with necessary tools like books and a laptop.</li>
+                        <li>They prepare nutritious meals to keep me healthy.</li>
+                        <li>They always listen to my problems and cheer me up when I'm stressed.</li>
+                    </ul>
+                    <div class="vocab-box">
+                        <h3>📚 New Vocabulary</h3>
+                        <p style="font-size: 0.9em;">Achievement, Appreciate, Bond, Breadwinner, Character, Chores, Close-knit, Contribute, Divide, Homemaker, Responsibility.</p>
+                    </div>
+                    <button class="btn-blue" onclick="switchLesson('video')">Next: Video Lesson ➡️</button>
+                </div>
+
+                <div id="lesson-video" class="lesson-content hidden">
+                    <h2>Video Lesson</h2>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <iframe width="800" height="450" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Lesson" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <button class="btn-blue" onclick="switchLesson('prelistening')">Next: Pre-listening ➡️</button>
+                </div>
+
+                <div id="lesson-prelistening" class="lesson-content hidden">
+                    <h2>Pre-listening</h2>
+                    <p><strong>1. Work in pairs. Look at the picture and answer the questions.</strong></p>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="https://1drv.ms/i/c/b666dc3776350221/IQSrKVg6hEKES7SrtjuLviyYAZi7qw2vdHn1shJeKFqhlt4" alt="Listening Practice Image" style="max-width: 100%; border-radius: 15px;">
+                    </div>
+                    <p>1. What can you see in the picture?<br>2. What do you think the student is talking about?</p>
+                    <button class="btn-blue" onclick="switchLesson('whilelistening')">Next: While-listening ➡️</button>
+                </div>
+
+                <div id="lesson-whilelistening" class="lesson-content hidden">
+                    <h2>While-listening Exercises</h2>
+                    <p>Task 2. Listen and check your answer.</p>
+                    <iframe src="https://1drv.ms/u/c/b666dc3776350221/IQRa8RSH0J0uS4H4ioFcJLXTAfjpL_P7ytKJpaH8CghnevI" width="100" height="100" frameborder="0"></iframe>
+                    <br>
+                    <button class="btn-blue" onclick="toggleAnswer('ans2')">Show / Hide Answer</button>
+                    <div id="ans2" class="answer-box">
+                        <p>He's talking about his family life and how his family helped him achieve success.</p>
+                    </div>
+                    <br><br>
+                    <p>Task 3. Listen and decide True/False.</p>
+                    <button class="btn-blue" onclick="toggleAnswer('ans3')">Show / Hide Answer</button>
+                    <div id="ans3" class="answer-box"><p>1. F | 2. F | 3. T | 4. T</p></div>
+                    <br>
+                    <button class="btn-blue" onclick="switchLesson('postlistening')">Next: Post-listening ➡️</button>
+                </div>
+
+                <div id="lesson-postlistening" class="lesson-content hidden">
+                    <h2>Post-listening</h2>
+                    <p>Discuss in groups your own family routines. How do you support each other?</p>
+                    <button class="btn-blue" onclick="switchLesson('wrapup')">Next: Wrap-up ➡️</button>
+                </div>
+
+                <div id="lesson-wrapup" class="lesson-content hidden">
+                    <h2>Congratulations! 🌟</h2>
+                    <p>You have completed the Listening Lesson for Unit 1.</p>
+                    <button class="btn-blue" onclick="switchLesson('homework')">Next: Homework ➡️</button>
+                </div>
+
+                <div id="lesson-homework" class="lesson-content hidden">
+                    <h2>Homework 📝</h2>
+                    <div class="vocab-box">
+                        <ul>
+                            <li>Complete workbook exercises for Unit 1.</li>
+                            <li>Prepare for Writing lesson.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="activities" class="page-section">
+            <div class="content-card">
+                <h2 style="font-style: italic;">Fun Activities & Games</h2>
+                <a href="https://quizlet.com/vn/1170141804/practice-unit-1-lesson-5-flash-cards/" target="_blank" class="activity-card">
+                    <h3>🟦 Quizlet Flashcards</h3>
+                    <p>Master new words with our flashcard set.</p>
+                </a>
+                <a href="https://create.kahoot.it/share/tu-vung-anhviet-nghia-va-sac-thai-dung-tu/4a16dfe5-e702-4586-844d-7ced16bdd694" target="_blank" class="activity-card">
+                    <h3>🟪 Kahoot! Challenge</h3>
+                    <p>Compete with friends in this fun quiz.</p>
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>About Us</h3>
+                <p>Designed for 10th graders to master English Listening skills.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contacts</h3>
+                <p>📞 0732748782 | ✉️ unit1lesson5listening@gmail.com</p>
+            </div>
+            <div class="footer-col">
+                <h3>Sources</h3>
+                <a href="https://www.minh-pham.info/2022/03/sach-giao-khoa-tieng-anh-10-global-success.html" target="_blank">🔗 Global Success English 10</a>
+            </div>
+            <div class="footer-col">
+                <h3>Follow Us</h3>
+                <a href="#">📘 Facebook</a> | <a href="#">🎵 TikTok</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ffc107', '#0d6efd', '#ffffff'] });
+        };
+
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+            document.getElementById('nav-pill-' + pageId).classList.add('active');
+            if (pageId === 'learning') switchLesson('warmup');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function switchLesson(lessonId) {
+            document.querySelectorAll('.lesson-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.sub-nav button').forEach(el => el.classList.remove('active'));
+            document.getElementById('lesson-' + lessonId).classList.remove('hidden');
+            document.getElementById('nav-' + lessonId).classList.add('active');
+            document.getElementById('learning').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleAnswer(id) {
+            var el = document.getElementById(id);
+            el.style.display = (el.style.display === "block") ? "none" : "block";
+        }
+    </script>
+</body>
+</html>
