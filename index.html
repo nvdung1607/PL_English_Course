@@ -216,13 +216,16 @@
             width: 250px;
             min-width: 250px;
             height: 350px;
-            background-color: #e0e0e0;
             border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border: 4px solid var(--primary-blue);
-            font-style: italic;
+            background-color: #e0e0e0;
+            overflow: hidden;
+        }
+        .teacher-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* ================= ACTIVITIES ================= */
@@ -292,7 +295,7 @@
                 <h2 style="font-style: italic; color: var(--primary-blue);">Meet Our Expert Teachers</h2>
                 <div class="teacher-grid">
                     <div class="teacher-card">
-                        <div class="teacher-img">Photo Here</div>
+                        <div class="teacher-img"><img src="img/avt1.jpg" alt="Mr. Hoang Ky Anh"></div>
                         <div class="teacher-info">
                             <h3>Mr. Hoang Ky Anh</h3>
                             <p>📱 0974737262 | ✉️ 20231655@eaut.edu.vn</p>
@@ -301,7 +304,7 @@
                         </div>
                     </div>
                     <div class="teacher-card">
-                        <div class="teacher-img">Photo Here</div>
+                        <div class="teacher-img"><img src="img/avt2.jpg" alt="Ms. Trinh Phuong Linh"></div>
                         <div class="teacher-info">
                             <h3>Ms. Trinh Phuong Linh</h3>
                             <p>📱 0918825844 | ✉️ 20232528@eaut.edu.vn</p>
@@ -310,7 +313,7 @@
                         </div>
                     </div>
                     <div class="teacher-card">
-                        <div class="teacher-img">Photo Here</div>
+                        <div class="teacher-img"><img src="img/avt3.jpg" alt="Ms. Nguyen Quynh Nga"></div>
                         <div class="teacher-info">
                             <h3>Ms. Nguyen Quynh Nga</h3>
                             <p>📱 0987364177 | ✉️ 2023178@edut.edu.vn</p>
