@@ -1,483 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 1: Lesson 5: Listening</title>
-    
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 1: Lesson 5: Listening - Final Master Version</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<style>
+:root {
+--primary-blue: #0d6efd;
+--dark-blue: #084298;
+--accent-yellow: #ffc107;
+--light-bg: #f8f9fa;
+--text-color: #333;
+--white: #ffffff;
+--correct: #28a745;
+--wrong: #dc3545;
+}
+body {
+font-family: 'Times New Roman', Times, serif;
+font-size: 20px;
+background-color: #e8f2ff;
+color: var(--text-color);
+margin: 0; padding: 0;
+line-height: 1.6;
+}
 
-    <style>
-        /* ================= GLOBAL STYLES ================= */
-        :root {
-            --primary-blue: #0d6efd; 
-            --dark-blue: #084298; 
-            --accent-yellow: #ffc107; 
-            --light-bg: #f8f9fa; 
-            --text-color: #333;
-            --white: #ffffff;
-        }
+header {
+background: var(--white);
+padding: 15px 50px;
+display: flex; justify-content: space-between; align-items: center;
+box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+position: sticky; top: 0; z-index: 1000;
+}
+.header-title { font-weight: bold; font-size: 1.6em; color: var(--primary-blue); margin: 0; }
+.header-subtitle { font-size: 0.75em; font-weight: bold; color: #555; text-transform: uppercase; }
 
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 24px;
-            background-color: #e8f2ff; 
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-        }
+nav { display: flex; gap: 15px; }
+.nav-pill {
+text-decoration: none; color: var(--text-color); background: var(--light-bg);
+padding: 10px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s;
+}
+.nav-pill.active { background: var(--primary-blue); color: var(--white); }
 
-        h1, h2, h3, h4, h5, h6, button, input, textarea {
-            font-family: 'Times New Roman', Times, serif;
-        }
+.container { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 70vh; }
+.page-section { display: none; }
+.page-section.active { display: block; animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ================= HEADER ================= */
-        header {
-            background-color: var(--white);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+.content-card { background: var(--white); padding: 40px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
 
-        .brand-container {
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-        }
+/* TABS NAVIGATION */
+.sub-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; justify-content: center; border-bottom: 2px solid #eee; padding-bottom: 20px; }
+.sub-nav button {
+font-size: 17px; padding: 10px 20px; border: 2px solid var(--primary-blue);
+background: transparent; color: var(--primary-blue); cursor: pointer; border-radius: 40px; transition: 0.3s;
+}
+.sub-nav button.active { background: var(--primary-blue); color: var(--white); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-        .site-title {
-            font-weight: 700;
-            font-size: 1.4em;
-            color: var(--primary-blue);
-            margin: 0;
-            font-style: italic;
-        }
+/* INTERACTIVE TASKS */
+.mc-item { background: #fcfcfc; padding: 20px; border-radius: 20px; border: 1px solid #eee; margin-bottom: 20px; }
+.option-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+.option-btn { padding: 10px 20px; border: 2px solid #ddd; border-radius: 15px; background: white; cursor: pointer; transition: 0.3s; font-weight: bold;
+flex: 1; min-width: 150px; text-align: center; }
+.option-btn.selected { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
+.option-btn.correct { background: var(--correct) !important; color: white !important; border-color: var(--correct) !important; }
+.option-btn.wrong { background: var(--wrong) !important; color: white !important; border-color: var(--wrong) !important; }
 
-        .site-subtitle {
-            font-size: 1em;
-            color: var(--primary-blue);
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-style: italic;
-        }
+.tf-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; table-layout: fixed;
+}
+.tf-table th, .tf-table td { border-bottom: 1px solid #eee; padding: 20px; vertical-align: middle; }
+.statement-col { width: 70%; text-align: left; }
+.tick-cell { cursor: pointer; font-size: 1.5em; text-align: center; border-left: 1px solid #eee; transition: 0.2s; }
+.tick-cell.selected { color: var(--primary-blue); font-weight: bold; background: #eef5ff; }
+.tick-cell.correct-ans { background: #d4edda !important; color: #155724; }
+.tick-cell.wrong-ans { background: #f8d7da !important; color: #721c24; }
 
-        nav {
-            display: flex;
-            gap: 15px;
-        }
+/* WRAP-UP (image_c2f612.png style) */
+.wrap-container { display: flex; gap: 30px; margin-top: 30px; }
+.wrap-card { flex: 1; padding: 40px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.wrap-blue { border: 1px solid #cce5ff; background: #f0f7ff; }
+.wrap-yellow { border: 1px solid #fff3cd; background: #fffdf0; }
 
-        .nav-pill {
-            text-decoration: none;
-            color: var(--text-color);
-            background-color: var(--light-bg);
-            padding: 10px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9em;
-        }
+/* FOOTER */
+footer { background: var(--dark-blue); color: #fff; padding: 60px 40px; margin-top: 80px; border-top: 5px solid var(--accent-yellow); }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto; }
+.social-icons { display: flex; gap: 20px; margin-top: 20px; }
+.social-icons a { color: white; font-size: 1.5em; transition: 0.3s; }
+.social-icons a:hover { color: var(--accent-yellow); transform: translateY(-3px); }
+.footer-link { cursor: pointer; display: block; margin-bottom: 10px; color: #ccc; text-decoration: none; }
+.footer-link:hover { color: white; }
 
-        .nav-pill:hover { background-color: #e2e6ea; }
-        .nav-pill.active { background-color: var(--primary-blue); color: var(--white); }
-
-        /* ================= MAIN CONTAINER ================= */
-        .container {
-            max-width: 1400px;
-            margin: 40px auto;
-            min-height: 60vh;
-        }
-
-        .page-section { display: none; }
-        .page-section.active { display: block; animation: fadeIn 0.5s ease; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ================= HOME HERO ================= */
-        .hero-section {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 80px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.3);
-            margin: 0 20px;
-        }
-
-        .hero-title { font-size: 2.5em; font-weight: 700; font-style: italic; }
-        .hero-subtitle { font-size: 1.2em; font-style: italic; margin-bottom: 30px; }
-        .hero-highlight { color: var(--accent-yellow); font-size: 1.8em; font-weight: bold; font-style: italic; margin-bottom: 50px; }
-
-        .btn-yellow {
-            background-color: var(--accent-yellow);
-            color: #333;
-            font-size: 1.1em;
-            padding: 15px 50px;
-            border: none;
-            border-radius: 40px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            font-style: italic;
-        }
-        .btn-yellow:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6); }
-
-        .content-card {
-            background-color: var(--white);
-            padding: 50px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            margin: 0 20px;
-        }
-
-        /* ================= LEARNING NAV ================= */
-        .sub-nav {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 40px;
-            justify-content: center;
-        }
-
-        .sub-nav button {
-            font-size: 1.1em;
-            padding: 10px 25px;
-            border: 2px solid var(--primary-blue);
-            background: transparent;
-            color: var(--primary-blue);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .sub-nav button.active, .sub-nav button:hover {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            border-radius: 40px;
-            font-style: italic;
-        }
-
-        .hidden { display: none !important; }
-        
-        .btn-blue {
-            font-size: 1em;
-            padding: 12px 35px;
-            background-color: var(--primary-blue);
-            color: var(--white);
-            border: none;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
-        }
-        .btn-blue:hover { background-color: var(--dark-blue); }
-
-        .answer-box {
-            display: none;
-            background-color: #f8f9fa;
-            border-left: 5px solid var(--primary-blue);
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-        }
-
-        .vocab-box {
-            background-color: #fff3cd;
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            border: 2px dashed #ffc107;
-        }
-
-        /* ================= TEACHERS ================= */
-        .teacher-grid { display: flex; flex-direction: column; gap: 40px; }
-        .teacher-card {
-            background: #fafafa;
-            padding: 30px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            text-align: left;
-        }
-        .teacher-card:nth-child(even) { flex-direction: row-reverse; }
-        .teacher-img {
-            width: 250px;
-            min-width: 250px;
-            height: 350px;
-            border-radius: 20px;
-            border: 4px solid var(--primary-blue);
-            background-color: #e0e0e0;
-            overflow: hidden;
-        }
-        .teacher-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* ================= ACTIVITIES ================= */
-        .activity-card {
-            display: block;
-            padding: 30px;
-            background: #e3f2fd;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: 0.3s;
-        }
-        .activity-card:hover { transform: scale(1.02); }
-        .activity-card h3 { font-style: italic; }
-
-        /* ================= FOOTER ================= */
-        footer {
-            background-color: var(--dark-blue);
-            color: var(--white);
-            padding: 60px 40px;
-            margin-top: 60px;
-            border-top-left-radius: 40px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .footer-col h3 { color: var(--accent-yellow); font-style: italic; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; }
-        .footer-col p, .footer-col a { color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 10px; font-style: italic; margin-bottom: 15px; }
-
-    </style>
+.next-step-btn { display: block; width: fit-content; margin: 40px auto 0; background: #28a745; color: white; padding: 15px 45px; border-radius: 50px;
+text-decoration: none; font-weight: bold; border: none; cursor: pointer; font-size: 1.1em; }
+.check-btn { background: var(--dark-blue); color: white; padding: 12px 35px; border-radius: 20px; border: none; cursor: pointer; margin-top: 20px; font-weight: bold; }
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="brand-container" onclick="navigateTo('home')">
-            <h1 class="site-title">Unit 1: Lesson 5: Listening</h1>
-            <p class="site-subtitle">📕 Learn with Joy</p>
-        </div>
-        <nav>
-            <a id="nav-pill-home" class="nav-pill active" onclick="navigateTo('home')">Home</a>
-            <a id="nav-pill-about" class="nav-pill" onclick="navigateTo('about')">About Us</a>
-            <a id="nav-pill-learning" class="nav-pill" onclick="navigateTo('learning')">Learning</a>
-            <a id="nav-pill-activities" class="nav-pill" onclick="navigateTo('activities')">Activities</a>
-        </nav>
-    </header>
+<header>
+<div class="header-left" onclick="navigateTo('home')" style="cursor:pointer">
+<div class="header-title">Unit 1: Lesson 5: Listening</div>
+<div class="header-subtitle">GLOBAL SUCCESS ENGLISH 10</div>
+</div>
+<nav>
+<div id="nav-pill-home" class="nav-pill active" onclick="navigateTo('home')">Home</div>
+<div id="nav-pill-about" class="nav-pill" onclick="navigateTo('about')">About Us</div>
+<div id="nav-pill-learning" class="nav-pill" onclick="navigateTo('learning')">Learning</div>
+<div id="nav-pill-activities" class="nav-pill" onclick="navigateTo('activities')">Activities</div>
+</nav>
+</header>
 
-    <div class="container">
-        
-        <section id="home" class="page-section active">
-            <div class="hero-section">
-                <h2 class="hero-title">Welcome to Our Learning Space!</h2>
-                <p class="hero-subtitle">A spacious, interactive environment to master your English listening skills.</p>
-                <div class="hero-highlight">Unit 1 : Lesson 5 : Listening</div>
-                <button class="btn-yellow" onclick="navigateTo('learning')">🚀 Start Learning</button>
-            </div>
-        </section>
+<div class="container">
+<section id="home" class="page-section active">
+<div style="background: var(--primary-blue); color: #fff; text-align: center; padding: 100px 40px; border-radius: 35px; box-shadow: 0 15px 35px rgba(13, 110, 253, 0.2);">
+<h2 style="font-size: 3.5em; font-style: italic; margin-bottom: 10px;">Welcome to Our Digital Classroom</h2>
+<p style="font-size: 1.8em; color: var(--accent-yellow); font-weight: bold; margin-bottom: 5px;">English 10: Global Success</p>
+<p style="font-size: 1.4em; margin-bottom: 30px; opacity: 0.9;">Unit 1 - Lesson 5: Listening (Family Life)</p>
 
-        <section id="about" class="page-section">
-            <div class="content-card">
-                <h2 style="font-style: italic; color: var(--primary-blue);">Meet Our Expert Teachers</h2>
-                <div class="teacher-grid">
-                    <div class="teacher-card">
-                        <div class="teacher-img"><img src="img/avt1.jpg" alt="Mr. Hoang Ky Anh"></div>
-                        <div class="teacher-info">
-                            <h3>Mr. Hoang Ky Anh</h3>
-                            <p>📱 0974737262 | ✉️ 20231655@eaut.edu.vn</p>
-                            <p><em>"Discipline creates excellence"</em></p>
-                            <p>Hello! I am Hoang Ky Anh. With over 5 years of experience teaching academic English and IELTS/TOEIC preparation, I understand the obstacles Vietnamese students often face. Let's turn pressure into motivation to reach further together!</p>
-                        </div>
-                    </div>
-                    <div class="teacher-card">
-                        <div class="teacher-img"><img src="img/avt2.jpg" alt="Ms. Trinh Phuong Linh"></div>
-                        <div class="teacher-info">
-                            <h3>Ms. Trinh Phuong Linh</h3>
-                            <p>📱 0918825844 | ✉️ 20232528@eaut.edu.vn</p>
-                            <p><em>"Break the barrier, speak confidently"</em></p>
-                            <p>Hello! I am Trinh Phuong Linh. My biggest passion is helping students overcome the fear of making mistakes when communicating. If you are looking for the confidence to express yourself, I am here to help you create that!</p>
-                        </div>
-                    </div>
-                    <div class="teacher-card">
-                        <div class="teacher-img"><img src="img/avt3.jpg" alt="Ms. Nguyen Quynh Nga"></div>
-                        <div class="teacher-info">
-                            <h3>Ms. Nguyen Quynh Nga</h3>
-                            <p>📱 0987364177 | ✉️ 2023178@edut.edu.vn</p>
-                            <p><em>"Ignite the love for language"</em></p>
-                            <p>Hello parents and dear students! I am Nguyen Quynh Nga. By using experiential learning methods, I strive to provide a fun, safe, and friendly learning environment. Let me accompany your child on the journey to discover this wonderful world of English naturally!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<button class="nav-pill active" style="margin-top: 20px; border: none; padding: 15px 50px; font-size: 1.2em;" onclick="navigateTo('learning')">START LESSON 🚀</button>
+</div>
+</section>
 
-        <section id="learning" class="page-section">
-            <div class="content-card">
-                <div class="sub-nav">
-                    <button id="nav-warmup" class="active" onclick="switchLesson('warmup')">Warm-Up</button>
-                    <button id="nav-video" onclick="switchLesson('video')">Video Lesson</button>
-                    <button id="nav-prelistening" onclick="switchLesson('prelistening')">Pre-listening</button>
-                    <button id="nav-whilelistening" onclick="switchLesson('whilelistening')">While-listening</button>
-                    <button id="nav-postlistening" onclick="switchLesson('postlistening')">Post-listening</button>
-                    <button id="nav-wrapup" onclick="switchLesson('wrapup')">Wrap-up</button>
-                    <button id="nav-homework" onclick="switchLesson('homework')">Homework</button>
-                </div>
+<section id="about" class="page-section">
+<div class="content-card">
+<h2 style="color: var(--primary-blue); font-size: 2.2em; text-align: center; margin-bottom: 50px;">Our Teaching Team</h2>
 
-                <div id="lesson-warmup" class="lesson-content">
-                    <h2>Let's think! 🤔</h2>
-                    <p>Before we start, think about the following question and post your thoughts in the class discussion forum:</p>
-                    <blockquote style="color: var(--primary-blue); font-style: italic;">
-                        "What is the most important thing your parents do to help you with your studies?"
-                    </blockquote>
-                    <p>Suggested ideas:</p>
-                    <ul>
-                        <li>They provide me with necessary tools like books and a laptop.</li>
-                        <li>They prepare nutritious meals to keep me healthy.</li>
-                        <li>They always listen to my problems and cheer me up when I'm stressed.</li>
-                    </ul>
-                    <div class="vocab-box">
-                        <h3>📚 New Vocabulary</h3>
-                        <p style="font-size: 0.9em;">Achievement, Appreciate, Bond, Breadwinner, Character, Chores, Close-knit, Contribute, Divide, Homemaker, Responsibility.</p>
-                    </div>
-                    <button class="btn-blue" onclick="switchLesson('video')">Next: Video Lesson ➡️</button>
-                </div>
+<div class="teacher-card" style="display: flex; gap: 30px; background: #fafafa; padding: 30px; border-radius: 25px; margin-bottom: 30px; border: 1px solid #eee;">
+<div style="min-width: 200px; height: 280px; border-radius: 20px; border: 3px solid var(--primary-blue); overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08);">
+<img src="img/avt1.jpg" alt="Hoàng Kỳ Anh" style="width:100%; height:100%; object-fit: cover; display: block;">
+</div>
+<div class="teacher-info">
+<h3 style="color: var(--dark-blue); border-bottom: 2px solid var(--accent-yellow); display: inline-block;">Hoàng Kỳ Anh</h3>
+<p>Hello! I am Hoàng Kỳ Anh. With over 5 years of experience teaching academic English and preparing for IELTS/TOEIC, I deeply understand the obstacles Vietnamese students often face.
+My classes focus on building logical language thinking and personalized test strategies.
+With the motto 'Discipline creates excellence,' I commit to being a dedicated guide, helping you not only break through to your dream scores but also confidently use English as a powerful tool in the international environment.</p>
+</div>
+</div>
 
-                <div id="lesson-video" class="lesson-content hidden">
-                    <h2>Video Lesson</h2>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <iframe width="800" height="450" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video Lesson" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <button class="btn-blue" onclick="switchLesson('prelistening')">Next: Pre-listening ➡️</button>
-                </div>
+<div class="teacher-card" style="display: flex; gap: 30px; background: #fafafa; padding: 30px; border-radius: 25px; margin-bottom: 30px; border: 1px solid #eee;">
+<div style="min-width: 200px; height: 280px; border-radius: 20px; border: 3px solid var(--primary-blue); overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08);">
+<img src="img/avt2.jpg" alt="Trịnh Phương Linh" style="width:100%; height:100%; object-fit: cover; display: block;">
+</div>
+<div class="teacher-info">
+<h3 style="color: var(--dark-blue); border-bottom: 2px solid var(--accent-yellow); display: inline-block;">Trịnh Phương Linh</h3>
+<p>Hi there! I am Trịnh Phương Linh. My teaching philosophy revolves around 'Learning with joy and purpose.'
+I believe that every student has a unique way of acquiring a language, and my role is to create an inspiring atmosphere where you feel safe to make mistakes and grow.
+I specialize in communicative English and soft skills, ensuring that our lessons are not just about grammar, but about real-life application and cultural understanding.</p>
+</div>
+</div>
 
-                <div id="lesson-prelistening" class="lesson-content hidden">
-                    <h2>Pre-listening</h2>
-                    <p><strong>1. Work in pairs. Look at the picture and answer the questions.</strong></p>
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="https://1drv.ms/i/c/b666dc3776350221/IQSrKVg6hEKES7SrtjuLviyYAZi7qw2vdHn1shJeKFqhlt4" alt="Listening Practice Image" style="max-width: 100%; border-radius: 15px;">
-                    </div>
-                    <p>1. What can you see in the picture?<br>2. What do you think the student is talking about?</p>
-                    <button class="btn-blue" onclick="switchLesson('whilelistening')">Next: While-listening ➡️</button>
-                </div>
+<div class="teacher-card" style="display: flex; gap: 30px; background: #fafafa; padding: 30px; border-radius: 25px; margin-bottom: 30px; border: 1px solid #eee;">
+<div style="min-width: 200px; height: 280px; border-radius: 20px; border: 3px solid var(--primary-blue); overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08);">
+<img src="img/avt3.jpg" alt="Nguyễn Quỳnh Nga" style="width:100%; height:100%; object-fit: cover; display: block;">
+</div>
+<div class="teacher-info">
+<h3 style="color: var(--dark-blue); border-bottom: 2px solid var(--accent-yellow); display: inline-block;">Nguyễn Quỳnh Nga</h3>
+<p>Greetings! I am Nguyễn Quỳnh Nga. With a strong background in linguistics and education technology, I aim to bring modern, interactive methods into the classroom.
+I focus on helping students master the foundations of English while integrating digital tools to make learning more efficient and engaging.
+My goal is to empower you to become an independent learner who can navigate the digital age with fluency and critical thinking.</p>
+</div>
+</div>
+</div>
+</section>
 
-                <div id="lesson-whilelistening" class="lesson-content hidden">
-                    <h2>While-listening Exercises</h2>
-                    <p>Task 2. Listen and check your answer.</p>
-                    <iframe src="https://1drv.ms/u/c/b666dc3776350221/IQRa8RSH0J0uS4H4ioFcJLXTAfjpL_P7ytKJpaH8CghnevI" width="100" height="100" frameborder="0"></iframe>
-                    <br>
-                    <button class="btn-blue" onclick="toggleAnswer('ans2')">Show / Hide Answer</button>
-                    <div id="ans2" class="answer-box">
-                        <p>He's talking about his family life and how his family helped him achieve success.</p>
-                    </div>
-                    <br><br>
-                    <p>Task 3. Listen and decide True/False.</p>
-                    <button class="btn-blue" onclick="toggleAnswer('ans3')">Show / Hide Answer</button>
-                    <div id="ans3" class="answer-box"><p>1. F | 2. F | 3. T | 4. T</p></div>
-                    <br>
-                    <button class="btn-blue" onclick="switchLesson('postlistening')">Next: Post-listening ➡️</button>
-                </div>
+<section id="learning" class="page-section">
+<div class="content-card">
+<div class="sub-nav">
+<button id="btn-1" class="active" onclick="switchTab(1)">Warm-Up</button>
+<button id="btn-2" onclick="switchTab(2)">Video</button>
+<button id="btn-3" onclick="switchTab(3)">Pre-listening</button>
+<button id="btn-4" onclick="switchTab(4)">While-listening</button>
+<button id="btn-5" onclick="switchTab(5)">Post-listening</button>
+<button id="btn-6" onclick="switchTab(6)">Wrap-up</button>
+<button id="btn-7" onclick="switchTab(7)">Homework</button>
+</div>
 
-                <div id="lesson-postlistening" class="lesson-content hidden">
-                    <h2>Post-listening</h2>
-                    <p>Discuss in groups your own family routines. How do you support each other?</p>
-                    <button class="btn-blue" onclick="switchLesson('wrapup')">Next: Wrap-up ➡️</button>
-                </div>
+<div id="tab-1" class="tab-content active">
+<h3>Think & Share</h3>
+<p><b>"What is the most important thing your parents do to help you with your studies?"</b></p>
+<h4 style="color: var(--primary-blue); margin-top: 30px;">Vocabulary List:</h4>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #f9f9f9; padding: 25px; border-radius: 20px; border: 1px solid #eee;">
+<div>1. <b>Character</b> /'kærəktə(r)/: Tính cách</div>
+<div>2. <b>Chores</b> /tʃɔ:rz/: Việc vặt</div>
+<div>3. <b>Close-knit</b> /,kləʊs 'nit/: Khăng khít</div>
+<div>4. <b>Contribute</b> /kən'tribju:t/: Đóng góp</div>
+<div>5. <b>Encourage</b> /ɪnˈkʌrɪdʒ/: Khuyến khích</div>
+<div>6. <b>Routine</b> /ruːˈtiːn/: Thói quen</div>
+<div>7. <b>Responsibility</b> /rɪˌspɒnsəˈbɪləti/: Trách nhiệm</div>
+<div>8. <b>Bond</b> /bɒnd/: Mối gắn kết</div>
+<div>9. <b>Respect</b> /rɪˈspekt/: Tôn trọng</div>
+<div>10. <b>Appreciate</b> /əˈpriːʃieɪt/: Cảm kích</div>
+</div>
+<button class="next-step-btn" onclick="switchTab(2)">Next: Video Lecture ➔</button>
+</div>
 
-                <div id="lesson-wrapup" class="lesson-content hidden">
-                    <h2>Congratulations! 🌟</h2>
-                    <p>You have completed the Listening Lesson for Unit 1.</p>
-                    <button class="btn-blue" onclick="switchLesson('homework')">Next: Homework ➡️</button>
-                </div>
+<div id="tab-2" class="tab-content">
+<h3>Video Lecture</h3>
+<div style="text-align: center; margin: 30px 0;">
+<iframe width="800" height="450" src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" title="Video Lesson" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen style="max-width:100%; border-radius:20px;"></iframe>
+</div>
+<button class="next-step-btn" onclick="switchTab(3)">Next: Pre-listening ➔</button>
+</div>
 
-                <div id="lesson-homework" class="lesson-content hidden">
-                    <h2>Homework 📝</h2>
-                    <div class="vocab-box">
-                        <ul>
-                            <li>Complete workbook exercises for Unit 1.</li>
-                            <li>Prepare for Writing lesson.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div id="tab-3" class="tab-content">
+<h3>Look & Describe</h3>
+<p>Observe the following image and describe the family activities:</p>
+<div style="text-align: center; margin: 20px 0;">
+<img src="https://1drv.ms/i/c/b666dc3776350221/IQSrKVg6hEKES7SrtjuLviyYAZi7qw2vdHn1shJeKFqhlt4" alt="Listening Practice Image" style="max-width: 100%; border-radius: 15px;">
+</div>
+<div style="margin: 30px auto; max-width: 800px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 20px;">
+<p style="font-weight:bold; color: var(--primary-blue);">Pre-listening Audio</p>
+<audio controls style="width:100%; margin-bottom: 20px;">
+<source src="https://sach6789.com/wp-content/uploads/2022/08/TiengAnh-10-Global-Success-Audio-7.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+<audio controls style="width:100%;">
+<source src="https://sach6789.com/wp-content/uploads/2022/08/TiengAnh-10-Global-Success-Audio-6.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+</div>
+<button class="next-step-btn" onclick="switchTab(4)">Next: While-listening ➔</button>
+</div>
 
-        <section id="activities" class="page-section">
-            <div class="content-card">
-                <h2 style="font-style: italic;">Fun Activities & Games</h2>
-                <a href="https://quizlet.com/vn/1170141804/practice-unit-1-lesson-5-flash-cards/" target="_blank" class="activity-card">
-                    <h3>🟦 Quizlet Flashcards</h3>
-                    <p>Master new words with our flashcard set.</p>
-                </a>
-                <a href="https://create.kahoot.it/share/tu-vung-anhviet-nghia-va-sac-thai-dung-tu/4a16dfe5-e702-4586-844d-7ced16bdd694" target="_blank" class="activity-card">
-                    <h3>🟪 Kahoot! Challenge</h3>
-                    <p>Compete with friends in this fun quiz.</p>
-                </a>
-            </div>
-        </section>
+<div id="tab-4" class="tab-content">
+<h3>Task 2: Multiple Choice</h3>
+<div class="mc-item" data-ans="B">
+<p><b>1. What does Hieu's mother do?</b></p>
+<div class="option-group">
+<div class="option-btn" onclick="selectMC(this, 'A')">A. Housewife</div>
+<div class="option-btn" onclick="selectMC(this, 'B')">B. Teacher</div>
+<div class="option-btn" onclick="selectMC(this, 'C')">C. Doctor</div>
+</div>
+</div>
+<div class="mc-item" data-ans="C">
+<p><b>2. How often does his family go to the cinema together?</b></p>
+<div class="option-group">
+<div class="option-btn" onclick="selectMC(this, 'A')">A. Once a week</div>
+<div class="option-btn" onclick="selectMC(this, 'B')">B. Twice a month</div>
+<div class="option-btn" onclick="selectMC(this, 'C')">C. Once a month</div>
+</div>
+</div>
 
-    </div>
+<h3>Task 3: True or False (T/F)</h3>
+<table class="tf-table">
+<thead><tr><th class="statement-col">Statements</th><th style="text-align:center">True</th><th style="text-align:center">False</th></tr></thead>
+<tr data-ans="F"><td class="statement-col">1. There are three people in Hieu's family.</td><td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td></tr>
+<tr data-ans="F"><td class="statement-col">2. Hieu's parents teach him physics.</td><td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td></tr>
+<tr data-ans="T"><td class="statement-col">3. Family routines help them spend time together.</td><td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td></tr>
+</table>
+<button class="check-btn" onclick="checkAllAnswers()">Check Task 2 & 3 ✅</button>
+<button class="next-step-btn" onclick="switchTab(5)">Next: Post-listening ➔</button>
+</div>
 
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>About Us</h3>
-                <p>Designed for 10th graders to master English Listening skills.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Contacts</h3>
-                <p>📞 0732748782 | ✉️ unit1lesson5listening@gmail.com</p>
-            </div>
-            <div class="footer-col">
-                <h3>Sources</h3>
-                <a href="https://www.minh-pham.info/2022/03/sach-giao-khoa-tieng-anh-10-global-success.html" target="_blank">🔗 Global Success English 10</a>
-            </div>
-            <div class="footer-col">
-                <h3>Follow Us</h3>
-                <a href="#">📘 Facebook</a> | <a href="#">🎵 TikTok</a>
-            </div>
-        </div>
-    </footer>
+<div id="tab-5" class="tab-content">
+<h3>Discussion</h3>
+<div style="background: #e7f3ff; padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary-blue);">
+<p><b>Work in pairs. Talk about your own family routines:</b></p>
+<ul>
+<li>What does your family usually do together?</li>
+<li>How do these routines help your family members stay close?</li>
+</ul>
+</div>
+<button class="next-step-btn" onclick="switchTab(6)">Next: Wrap-up ➔</button>
+</div>
 
-    <script>
-        window.onload = function() {
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ffc107', '#0d6efd', '#ffffff'] });
-        };
+<div id="tab-6" class="tab-content">
+<div style="text-align: center;">
+<h2 style="color: #1a237e; font-size: 2.2em; font-weight: bold;">Congratulations! 🎊</h2>
+<p>You have completed the Listening Lesson for Unit 1.</p>
+</div>
+<div class="wrap-container">
+<div class="wrap-card wrap-blue">
+<div style="font-weight:bold; font-size:1.5em; margin-bottom:15px; color: var(--dark-blue);">📋 Recapping Learnings</div>
+<p><b>Vocab:</b> cheer up, strength, trust, routines.</p>
+<p><b>Skills:</b> Family roles & emotional support.</p>
+<p><b>Msg:</b> Support is love, trust, and presence.</p>
+</div>
+<div class="wrap-card wrap-yellow">
+<div style="font-weight:bold; font-size:1.5em; margin-bottom:15px; color: #856404;">🧠 Self-Reflection</div>
+<p style="text-decoration: underline;">Check your understanding:</p>
+<ul style="font-style: italic; list-style: none; padding: 0;">
+<li style="margin-bottom: 10px;">1. How many people are there in Hieu's family?</li>
+<li style="margin-bottom: 10px;">2. Can Hieu's parents help him with Physics?</li>
+<li style="margin-bottom: 10px;">3. Who does Hieu talk to for support?</li>
+</ul>
+</div>
+</div>
+<button class="next-step-btn" onclick="switchTab(7)">Next: Homework ➔</button>
+</div>
 
-        function navigateTo(pageId) {
-            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
-            document.getElementById('nav-pill-' + pageId).classList.add('active');
-            if (pageId === 'learning') switchLesson('warmup');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+<div id="tab-7" class="tab-content">
+<h3>Homework Assignment</h3>
+<div style="background: #fff3cd; padding: 30px; border-radius: 20px; border: 1px solid #ffeeba;">
+<p>1. <b>Vocabulary:</b> Learn by heart all new words from the lesson.</p>
+<p>2. <b>Writing:</b> Write a short paragraph (80-100 words) about your family support routines.</p>
+<p>3. <b>Preparation:</b> Prepare for the next lesson: Unit 1 - Writing.</p>
+</div>
+<div style="text-align: center; margin-top: 40px;">
+<button class="nav-pill active" onclick="navigateTo('home')">Back to Home</button>
+</div>
+</div>
+</div>
+</section>
 
-        function switchLesson(lessonId) {
-            document.querySelectorAll('.lesson-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.sub-nav button').forEach(el => el.classList.remove('active'));
-            document.getElementById('lesson-' + lessonId).classList.remove('hidden');
-            document.getElementById('nav-' + lessonId).classList.add('active');
-            document.getElementById('learning').scrollIntoView({ behavior: 'smooth' });
-        }
+<section id="activities" class="page-section">
+<div class="content-card" style="text-align: center;">
+<h2 style="color: var(--primary-blue);">Interactive Games</h2>
+<p>Review your vocabulary with these fun activities!</p>
+<div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+<a href="https://quizlet.com/vn/1170141804/practice-unit-1-lesson-5-flash-cards/?i=74fsq4&x=1qqt&fbclid=IwY2xjawRbtJpleHRuA2FlbQIxMABicmlkETFrU2h5UE5YVEFqZGVaNjNtc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHgKvL9RVQs6kdNNz-nVY2Srbfxg3AOqadOkWXSh3wvSjai1iITdelDXBMtKb_aem_AK2LP7Lsw5JHynIu5vIahw" target="_blank" style="background: var(--primary-blue); color: white; padding: 30px; border-radius: 20px; cursor: pointer; flex: 1; text-decoration: none;">Quizlet Review</a>
+<a href="https://create.kahoot.it/share/tu-vung-anhviet-nghia-va-sac-thai-dung-tu/4a16dfe5-e702-4586-844d-7ced16bdd694?fbclid=IwY2xjawRbtN5leHRuA2FlbQIxMABicmlkETFrU2h5UE5YVEFqZGVaNjNtc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqQm_K33OfNcaif2LPKnoaLsJcI113-tAusG6rjfyBbL-IPNaXSnxVnRS-FB_aem_6892rfC8ZToNrwhuXxkilQ" target="_blank" style="background: #46178f; color: white; padding: 30px; border-radius: 20px; cursor: pointer; flex: 1; text-decoration: none;">Kahoot! Game</a>
+</div>
+</div>
+</section>
+</div>
 
-        function toggleAnswer(id) {
-            var el = document.getElementById(id);
-            el.style.display = (el.style.display === "block") ? "none" : "block";
-        }
-    </script>
+<footer>
+<div class="footer-grid">
+<div>
+<h3 style="color: var(--accent-yellow);">English 10: Global Success</h3>
+<p>📍 EAUT, Nam Tu Liem, Hanoi.</p>
+<div class="social-icons">
+<a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+<a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
+</div>
+</div>
+<div>
+<h3 style="color: var(--accent-yellow);">Quick Navigation</h3>
+<a class="footer-link" onclick="navigateTo('home')">Home</a>
+<a class="footer-link" onclick="navigateTo('about')">About Us</a>
+<a class="footer-link" onclick="navigateTo('learning')">Learning</a>
+<a class="footer-link" onclick="navigateTo('activities')">Activities</a>
+</div>
+<div>
+<h3 style="color: var(--accent-yellow);">Contact Us</h3>
+<p>📞 0974 737 262</p>
+<p>📞 0918 825 844</p>
+<p>✉️20232528@eaut.edu.vn</p>
+</div>
+</div>
+</footer>
+
+<script>
+function navigateTo(id) {
+document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
+const pill = document.getElementById('nav-pill-' + id);
+if(pill) pill.classList.add('active');
+window.scrollTo(0,0);
+}
+
+function switchTab(idx) {
+document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+document.querySelectorAll('.sub-nav button').forEach(b => b.classList.remove('active'));
+document.getElementById('tab-' + idx).classList.add('active');
+document.getElementById('btn-' + idx).classList.add('active');
+}
+
+function selectMC(btn, choice) {
+const parent = btn.parentElement;
+parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+btn.classList.add('selected');
+parent.parentElement.setAttribute('data-user-choice', choice);
+}
+
+function setTick(cell, type) {
+const row = cell.parentElement;
+row.querySelectorAll('.tick-cell').forEach(c => {
+c.classList.remove('selected');
+c.innerHTML = "";
+});
+cell.classList.add('selected');
+cell.innerHTML = "✓";
+cell.setAttribute('data-choice', type);
+}
+
+function checkAllAnswers() {
+// Task 2
+document.querySelectorAll('.mc-item').forEach(item => {
+const correctAns = item.getAttribute('data-ans');
+item.querySelectorAll('.option-btn').forEach(btn => {
+btn.classList.remove('correct', 'wrong');
+if(btn.innerHTML.startsWith(correctAns)) btn.classList.add('correct');
+else if(btn.classList.contains('selected')) btn.classList.add('wrong');
+});
+});
+
+// Task 3
+document.querySelectorAll('.tf-table tr[data-ans]').forEach(row => {
+const correctAns = row.getAttribute('data-ans');
+row.querySelectorAll('.tick-cell').forEach(c => {
+c.classList.remove('correct-ans', 'wrong-ans');
+if(c.getAttribute('data-choice') === correctAns && c.classList.contains('selected')) c.classList.add('correct-ans');
+else if(c.classList.contains('selected')) c.classList.add('wrong-ans');
+});
+});
+confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+}
+
+window.onload = () => navigateTo('home');
+</script>
 </body>
 </html>
