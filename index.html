@@ -50,44 +50,16 @@ padding: 10px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; tra
 
 .content-card { background: var(--white); padding: 40px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; }
 
-/* TABS NAVIGATION */
 .sub-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; justify-content: center; border-bottom: 2px solid #eee; padding-bottom: 20px; }
 .sub-nav button {
 font-size: 17px; padding: 10px 20px; border: 2px solid var(--primary-blue);
 background: transparent; color: var(--primary-blue); cursor: pointer; border-radius: 40px; transition: 0.3s;
 }
 .sub-nav button.active { background: var(--primary-blue); color: var(--white); }
-.tab-content { 
-  display: block;
-  visibility: hidden; 
-  height: 0;
-  width: 0;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-.tab-content.active { 
-  display: block;
-  visibility: visible; 
-  height: auto;
-  width: auto;
-  overflow: visible;
-  padding: 40px;
-  margin-bottom: 30px;
-}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-/* INTERACTIVE TASKS */
-.mc-item { background: #fcfcfc; padding: 20px; border-radius: 20px; border: 1px solid #eee; margin-bottom: 20px; }
-.option-group { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-.option-btn { padding: 10px 20px; border: 2px solid #ddd; border-radius: 15px; background: white; cursor: pointer; transition: 0.3s; font-weight: bold;
-flex: 1; min-width: 150px; text-align: center; }
-.option-btn.selected { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
-.option-btn.correct { background: var(--correct) !important; color: white !important; border-color: var(--correct) !important; }
-.option-btn.wrong { background: var(--wrong) !important; color: white !important; border-color: var(--wrong) !important; }
-
-.tf-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; table-layout: fixed;
-}
+.tf-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 20px; border-radius: 20px; overflow: hidden; border: 1px solid #ddd; table-layout: fixed; }
 .tf-table th, .tf-table td { border-bottom: 1px solid #eee; padding: 20px; vertical-align: middle; }
 .statement-col { width: 70%; text-align: left; }
 .tick-cell { cursor: pointer; font-size: 1.5em; text-align: center; border-left: 1px solid #eee; transition: 0.2s; }
@@ -95,24 +67,31 @@ flex: 1; min-width: 150px; text-align: center; }
 .tick-cell.correct-ans { background: #d4edda !important; color: #155724; }
 .tick-cell.wrong-ans { background: #f8d7da !important; color: #721c24; }
 
-/* WRAP-UP (image_c2f612.png style) */
-.wrap-container { display: flex; gap: 30px; margin-top: 30px; }
-.wrap-card { flex: 1; padding: 40px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-.wrap-blue { border: 1px solid #cce5ff; background: #f0f7ff; }
-.wrap-yellow { border: 1px solid #fff3cd; background: #fffdf0; }
+.explanation { display: none; background: #fffde7; border-left: 5px solid #fbc02d; font-size: 0.9em; }
+.explanation td { padding: 15px 25px !important; }
+
+.black-btn { background: #0a0e1a; color: white; padding: 15px 30px; border-radius: 20px; border: none; cursor: pointer; font-weight: bold; display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 18px; margin: 15px 0; }
+.next-step-btn { display: block; width: fit-content; margin: 40px auto 0; background: #28a745; color: white; padding: 15px 45px; border-radius: 50px; text-decoration: none; font-weight: bold; border: none; cursor: pointer; font-size: 1.1em; }
+.check-btn { background: var(--dark-blue); color: white; padding: 12px 35px; border-radius: 20px; border: none; cursor: pointer; margin-top: 20px; font-weight: bold; }
 
 /* FOOTER */
 footer { background: var(--dark-blue); color: #fff; padding: 60px 40px; margin-top: 80px; border-top: 5px solid var(--accent-yellow); }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto; }
 .social-icons { display: flex; gap: 20px; margin-top: 20px; }
-.social-icons a { color: white; font-size: 1.5em; transition: 0.3s; }
+.social-icons a { color: white; font-size: 1.8em; transition: 0.3s; text-decoration: none; }
 .social-icons a:hover { color: var(--accent-yellow); transform: translateY(-3px); }
-.footer-link { cursor: pointer; display: block; margin-bottom: 10px; color: #ccc; text-decoration: none; }
-.footer-link:hover { color: white; }
 
-.next-step-btn { display: block; width: fit-content; margin: 40px auto 0; background: #28a745; color: white; padding: 15px 45px; border-radius: 50px;
-text-decoration: none; font-weight: bold; border: none; cursor: pointer; font-size: 1.1em; }
-.check-btn { background: var(--dark-blue); color: white; padding: 12px 35px; border-radius: 20px; border: none; cursor: pointer; margin-top: 20px; font-weight: bold; }
+/* Quick Navigation Vertical */
+.footer-nav { display: flex; flex-direction: column; gap: 10px; }
+.footer-link { cursor: pointer; color: #ccc; text-decoration: none; transition: 0.3s; width: fit-content; }
+.footer-link:hover { color: white; padding-left: 5px; }
+
+/* Wrap-up styles from file 1 */
+.wrap-container { display: flex; gap: 30px; margin-top: 30px; }
+.wrap-card { flex: 1; padding: 40px; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.wrap-blue { border: 1px solid #cce5ff; background: #f0f7ff; }
+.wrap-yellow { border: 1px solid #fff3cd; background: #fffdf0; }
+
 </style>
 </head>
 <body>
@@ -131,16 +110,17 @@ text-decoration: none; font-weight: bold; border: none; cursor: pointer; font-si
 </header>
 
 <div class="container">
+<!-- SECTION: HOME -->
 <section id="home" class="page-section active">
 <div style="background: var(--primary-blue); color: #fff; text-align: center; padding: 100px 40px; border-radius: 35px; box-shadow: 0 15px 35px rgba(13, 110, 253, 0.2);">
 <h2 style="font-size: 3.5em; font-style: italic; margin-bottom: 10px;">Welcome to Our Digital Classroom</h2>
 <p style="font-size: 1.8em; color: var(--accent-yellow); font-weight: bold; margin-bottom: 5px;">English 10: Global Success</p>
 <p style="font-size: 1.4em; margin-bottom: 30px; opacity: 0.9;">Unit 1 - Lesson 5: Listening (Family Life)</p>
-
-<button class="nav-pill active" style="margin-top: 20px; border: none; padding: 15px 50px; font-size: 1.2em;" onclick="navigateTo('learning')">START LESSON 🚀</button>
+<button class="nav-pill active" style="border: none; padding: 15px 50px; font-size: 1.2em;" onclick="navigateTo('learning')">START LESSON 🚀</button>
 </div>
 </section>
 
+<!-- SECTION: ABOUT US (FULL CONTENT - NO SUMMARY) -->
 <section id="about" class="page-section">
 <div class="content-card">
 <h2 style="color: var(--primary-blue); font-size: 2.2em; text-align: center; margin-bottom: 50px;">Our Teaching Team</h2>
@@ -183,6 +163,7 @@ My goal is to empower you to become an independent learner who can navigate the 
 </div>
 </section>
 
+<!-- SECTION: LEARNING (AS PER CHỈNH WEB 1) -->
 <section id="learning" class="page-section">
 <div class="content-card">
 <div class="sub-nav">
@@ -191,29 +172,29 @@ My goal is to empower you to become an independent learner who can navigate the 
 <button id="btn-3" onclick="switchTab(3)">Pre-listening</button>
 <button id="btn-4" onclick="switchTab(4)">While-listening</button>
 <button id="btn-5" onclick="switchTab(5)">Post-listening</button>
-<button id="btn-6" onclick="switchTab(6)">Wrap-up</button>
 <button id="btn-7" onclick="switchTab(7)">Homework</button>
 </div>
 
+<!-- 1. WARM-UP: VISUAL DISCOVERY -->
 <div id="tab-1" class="tab-content active">
-<h3>Think & Share</h3>
-<p><b>"What is the most important thing your parents do to help you with your studies?"</b></p>
-<h4 style="color: var(--primary-blue); margin-top: 30px;">Vocabulary List:</h4>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: #f9f9f9; padding: 25px; border-radius: 20px; border: 1px solid #eee;">
-<div>1. <b>Character</b> /'kærəktə(r)/: Tính cách</div>
-<div>2. <b>Chores</b> /tʃɔ:rz/: Việc vặt</div>
-<div>3. <b>Close-knit</b> /,kləʊs 'nit/: Khăng khít</div>
-<div>4. <b>Contribute</b> /kən'tribju:t/: Đóng góp</div>
-<div>5. <b>Encourage</b> /ɪnˈkʌrɪdʒ/: Khuyến khích</div>
-<div>6. <b>Routine</b> /ruːˈtiːn/: Thói quen</div>
-<div>7. <b>Responsibility</b> /rɪˌspɒnsəˈbɪləti/: Trách nhiệm</div>
-<div>8. <b>Bond</b> /bɒnd/: Mối gắn kết</div>
-<div>9. <b>Respect</b> /rɪˈspekt/: Tôn trọng</div>
-<div>10. <b>Appreciate</b> /əˈpriːʃieɪt/: Cảm kích</div>
+<h3>Visual Discovery</h3>
+<p>Students access the website to view and discuss the images.</p>
+<div style="text-align: center; margin: 20px 0; background: #f9f9f9; padding: 15px; border-radius: 15px; border: 1px solid #ddd;">
+<p style="color: #666;">(chèn ảnh ex1 trong sách vào phần này)</p>
+<div style="height: 250px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+<img src="https://1drv.ms/i/c/b666dc3776350221/IQSrKVg6hEKES7SrtjuLviyYAZi7qw2vdHn1shJeKFqhlt4" alt="Listening Practice Image" style="max-width: 100%; border-radius: 15px;">
 </div>
+</div>
+<div style="background: #fff8e1; padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+<p>1. What can you see in the picture?</p>
+<p>2. What do you think the students is talking about?</p>
+</div>
+<p>Type your 3 keywords into the Mentimeter link:</p>
+<a href="#" class="black-btn" style="background: #4a148c;"><i class="fas fa-chart-bar"></i> Open Mentimeter Activity</a>
 <button class="next-step-btn" onclick="switchTab(2)">Next: Video Lecture ➔</button>
 </div>
 
+<!-- 2. VIDEO -->
 <div id="tab-2" class="tab-content">
 <h3>Video Lecture</h3>
 <div style="text-align: center; margin: 30px 0;">
@@ -222,122 +203,118 @@ My goal is to empower you to become an independent learner who can navigate the 
 <button class="next-step-btn" onclick="switchTab(3)">Next: Pre-listening ➔</button>
 </div>
 
+<!-- 3. PRE-LISTENING: VOCABULARY SPOTLIGHT (AS PER SCREENSHOT) -->
 <div id="tab-3" class="tab-content">
-<h3>Look & Describe</h3>
-<p>Observe the following image and describe the family activities:</p>
-<div style="text-align: center; margin: 20px 0;">
-<img src="https://1drv.ms/i/c/b666dc3776350221/IQSrKVg6hEKES7SrtjuLviyYAZi7qw2vdHn1shJeKFqhlt4" alt="Listening Practice Image" style="max-width: 100%; border-radius: 15px;">
-</div>
-<div style="margin: 30px auto; max-width: 800px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 20px;">
-<p style="font-weight:bold; color: var(--primary-blue);">Pre-listening Audio</p>
-<audio controls style="width:100%;">
-<source src="https://sach6789.com/wp-content/uploads/2022/08/TiengAnh-10-Global-Success-Audio-7.wav" type="audio/wav">
-Your browser does not support the audio element.
-</audio>
-</div>
+<h3 style="font-weight: bold;">Activity 1: Vocabulary Spotlight</h3>
+<p>Explore the map to understand the Meaning, Form, and Pronunciation (MFP) of our key terms:</p>
+<ul style="color: #0d47a1; font-weight: bold; margin-left: 20px; margin-bottom: 25px;">
+<li style="margin-bottom: 8px;">guest speaker</li>
+<li style="margin-bottom: 8px;">trust</li>
+<li style="margin-bottom: 8px;">cheer up</li>
+<li style="margin-bottom: 8px;">carry on</li>
+<li style="margin-bottom: 8px;">bond</li>
+</ul>
 <button class="next-step-btn" onclick="switchTab(4)">Next: While-listening ➔</button>
 </div>
 
+<!-- 4. WHILE-LISTENING -->
 <div id="tab-4" class="tab-content">
-<div style="margin: 30px auto; max-width: 800px; padding: 20px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 20px;">
-<p style="font-weight:bold; color: var(--primary-blue);">While-listening Audio</p>
-<audio controls style="width:100%;">
+<h3>Activity 2: Introduction Check</h3>
+<p>Listen to the introduction audio:</p>
+<audio controls style="width: 100%; margin-bottom: 15px;">
+<source src="https://sach6789.com/wp-content/uploads/2022/08/TiengAnh-10-Global-Success-Audio-7.wav" type="audio/wav">
+Your browser does not support the audio element.
+</audio>
+<p>Submit your check for Question 2 in the link below:</p>
+<a href="#" class="black-btn" style="background: #1967d2;"><i class="fab fa-google-drive"></i> Open Google Docs</a>
+
+<hr style="margin: 40px 0;">
+
+<h3>Activity 3: True or False (T/F)</h3>
+<p>Listen and complete the task. Wrong answers will reveal detailed explanations.</p>
+<audio controls style="width: 100%; margin-bottom: 15px;">
 <source src="https://sach6789.com/wp-content/uploads/2022/08/TiengAnh-10-Global-Success-Audio-6.wav" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
-</div>
-<h3>Task 2: Multiple Choice</h3>
-<div class="mc-item" data-ans="B">
-<p><b>1. What does Hieu's mother do?</b></p>
-<div class="option-group">
-<div class="option-btn" onclick="selectMC(this, 'A')">A. Housewife</div>
-<div class="option-btn" onclick="selectMC(this, 'B')">B. Teacher</div>
-<div class="option-btn" onclick="selectMC(this, 'C')">C. Doctor</div>
-</div>
-</div>
-<div class="mc-item" data-ans="C">
-<p><b>2. How often does his family go to the cinema together?</b></p>
-<div class="option-group">
-<div class="option-btn" onclick="selectMC(this, 'A')">A. Once a week</div>
-<div class="option-btn" onclick="selectMC(this, 'B')">B. Twice a month</div>
-<div class="option-btn" onclick="selectMC(this, 'C')">C. Once a month</div>
-</div>
-</div>
-
-<h3>Task 3: True or False (T/F)</h3>
 <table class="tf-table">
 <thead><tr><th class="statement-col">Statements</th><th style="text-align:center">True</th><th style="text-align:center">False</th></tr></thead>
-<tr data-ans="F"><td class="statement-col">1. There are three people in Hieu's family.</td><td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td></tr>
-<tr data-ans="F"><td class="statement-col">2. Hieu's parents teach him physics.</td><td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td></tr>
-<tr data-ans="T"><td class="statement-col">3. Family routines help them spend time together.</td><td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td></tr>
+<tr data-ans="F" id="q1">
+<td class="statement-col">1. There are three people in Hieu's family.</td>
+<td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td>
+</tr>
+<tr class="explanation" id="exp-q1"><td colspan="3">
+<b>Nội dung bài nghe:</b> Hieu: "Well, I live with my parents and my brother. And I must say that all my achievements are the result of their support."<br>
+<b>Hướng dẫn dịch:</b> Hiếu: "Chào buổi tối. Vâng, em sống với bố mẹ và anh trai của em. Và em phải nói rằng tất cả những thành tựu của em là kết quả của sự ủng hộ của họ."<br>
+<b>Giải thích:</b> Gia đình Hiếu gồm Hiếu, bố mẹ (2 người) và anh trai -> Tổng cộng 4 người. Câu này Sai.
+</td></tr>
+
+<tr data-ans="F" id="q2">
+<td class="statement-col">2. Hieu's parents teach him physics.</td>
+<td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td>
+</tr>
+<tr class="explanation" id="exp-q2"><td colspan="3">
+<b>Nội dung bài nghe:</b> Hieu: "My parents are farmers. They know little about physics. But they believe in me. They always listen to me and cheer me up whenever I have difficulties."<br>
+<b>Hướng dẫn dịch:</b> Hiếu: "Bố mẹ em làm nông. Họ biết rất ít về vật lý. Nhưng họ tin em. Họ luôn lắng nghe em và động viên em mỗi khi tôi gặp khó khăn."<br>
+<b>Giải thích:</b> Bố mẹ làm nông và biết ít về vật lý, họ chỉ ủng hộ tinh thần chứ không trực tiếp dạy học. Câu này Sai.
+</td></tr>
+
+<tr data-ans="T" id="q3">
+<td class="statement-col">3. Family routines help them spend time together.</td>
+<td class="tick-cell" onclick="setTick(this, 'T')"></td><td class="tick-cell" onclick="setTick(this, 'F')"></td>
+</tr>
+<tr class="explanation" id="exp-q3"><td colspan="3">
+<b>Nội dung bài nghe:</b> Hieu: "Yes. My parents have created some family routines so that every week we can spend some time together although we're all very busy."<br>
+<b>Hướng dẫn dịch:</b> Hiếu: "Vâng. Cha mẹ em đã tạo một số thói quen cho gia đình để mỗi tuần chúng em có thể dành một số thời gian bên nhau mặc dù tất cả chúng em đều rất bận rộn."<br>
+<b>Giải thích:</b> Đúng.
+</td></tr>
 </table>
-<button class="check-btn" onclick="checkAllAnswers()">Check Task 2 & 3 ✅</button>
+<button class="check-btn" onclick="checkTF()">Check Answers ✅</button>
+
+<hr style="margin: 40px 0;">
+
+<h3>Activity 4: Gap Filling</h3>
+<p>Listen again and complete sentences on LiveWorksheets.</p>
+<a href="#" class="black-btn" style="background: #2e7d32;"><i class="fas fa-edit"></i> Open LiveWorksheets</a>
 <button class="next-step-btn" onclick="switchTab(5)">Next: Post-listening ➔</button>
 </div>
 
+<!-- 5. POST-LISTENING -->
 <div id="tab-5" class="tab-content">
-<h3>Discussion</h3>
-<div style="background: #e7f3ff; padding: 30px; border-radius: 20px; border-left: 5px solid var(--primary-blue);">
-<p><b>Work in pairs. Talk about your own family routines:</b></p>
-<ul>
-<li>What does your family usually do together?</li>
-<li>How do these routines help your family members stay close?</li>
-</ul>
-</div>
-<button class="next-step-btn" onclick="switchTab(6)">Next: Wrap-up ➔</button>
-</div>
-
-<div id="tab-6" class="tab-content">
-<div style="text-align: center;">
-<h2 style="color: #1a237e; font-size: 2.2em; font-weight: bold;">Congratulations! 🎊</h2>
-<p>You have completed the Listening Lesson for Unit 1.</p>
-</div>
-<div class="wrap-container">
-<div class="wrap-card wrap-blue">
-<div style="font-weight:bold; font-size:1.5em; margin-bottom:15px; color: var(--dark-blue);">📋 Recapping Learnings</div>
-<p><b>Vocab:</b> cheer up, strength, trust, routines.</p>
-<p><b>Skills:</b> Family roles & emotional support.</p>
-<p><b>Msg:</b> Support is love, trust, and presence.</p>
-</div>
-<div class="wrap-card wrap-yellow">
-<div style="font-weight:bold; font-size:1.5em; margin-bottom:15px; color: #856404;">🧠 Self-Reflection</div>
-<p style="text-decoration: underline;">Check your understanding:</p>
-<ul style="font-style: italic; list-style: none; padding: 0;">
-<li style="margin-bottom: 10px;">1. How many people are there in Hieu's family?</li>
-<li style="margin-bottom: 10px;">2. Can Hieu's parents help him with Physics?</li>
-<li style="margin-bottom: 10px;">3. Who does Hieu talk to for support?</li>
-</ul>
-</div>
+<h3>Activity 5: Discussion</h3>
+<div style="background: #e1f5fe; padding: 30px; border-radius: 20px; border-left: 8px solid var(--primary-blue);">
+<p style="font-weight: bold; font-size: 1.2em;">“How can parents help their children achieve success?"</p>
+<p><i><b>Suggestion:</b> Parents play an important roles in children’s success in their studies. They can support and help their children choose good study strategies.</i></p>
+<a href="#" class="black-btn" style="background: #c2185b;"><i class="fas fa-comments"></i> Post on Padlet</a>
 </div>
 <button class="next-step-btn" onclick="switchTab(7)">Next: Homework ➔</button>
 </div>
 
+<!-- 7. HOMEWORK -->
 <div id="tab-7" class="tab-content">
-<h3>Homework Assignment</h3>
-<div style="background: #fff3cd; padding: 30px; border-radius: 20px; border: 1px solid #ffeeba;">
-<p>1. <b>Vocabulary:</b> Learn by heart all new words from the lesson.</p>
-<p>2. <b>Writing:</b> Write a short paragraph (80-100 words) about your family support routines.</p>
-<p>3. <b>Preparation:</b> Prepare for the next lesson: Unit 1 - Writing.</p>
+<h3>Homework</h3>
+<div style="background: #fffde7; padding: 30px; border-radius: 20px; border: 1px solid #fbc02d;">
+<p><b>Task:</b> Record a 1-minute video sharing one way your family supports you.</p>
+<p><b>Submission:</b> Submit your video on Padlet before the next class.</p>
+<a href="#" class="black-btn" style="background: #c2185b;"><i class="fas fa-video"></i> Upload to Padlet</a>
 </div>
-<div style="text-align: center; margin-top: 40px;">
-<button class="nav-pill active" onclick="navigateTo('home')">Back to Home</button>
-</div>
+<div style="text-align: center; margin-top: 30px;"><button class="nav-pill active" onclick="navigateTo('home')">Home</button></div>
 </div>
 </div>
 </section>
 
+<!-- SECTION: ACTIVITIES -->
 <section id="activities" class="page-section">
 <div class="content-card" style="text-align: center;">
-<h2 style="color: var(--primary-blue);">Interactive Games</h2>
-<p>Review your vocabulary with these fun activities!</p>
+<h2>Interactive Games</h2>
 <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
-<a href="https://quizlet.com/vn/1170141804/practice-unit-1-lesson-5-flash-cards/?i=74fsq4&x=1qqt&fbclid=IwY2xjawRbtJpleHRuA2FlbQIxMABicmlkETFrU2h5UE5YVEFqZGVaNjNtc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHgKvL9RVQs6kdNNz-nVY2Srbfxg3AOqadOkWXSh3wvSjai1iITdelDXBMtKb_aem_AK2LP7Lsw5JHynIu5vIahw" target="_blank" style="background: var(--primary-blue); color: white; padding: 30px; border-radius: 20px; cursor: pointer; flex: 1; text-decoration: none;">Quizlet Review</a>
-<a href="https://create.kahoot.it/share/tu-vung-anhviet-nghia-va-sac-thai-dung-tu/4a16dfe5-e702-4586-844d-7ced16bdd694?fbclid=IwY2xjawRbtN5leHRuA2FlbQIxMABicmlkETFrU2h5UE5YVEFqZGVaNjNtc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHqQm_K33OfNcaif2LPKnoaLsJcI113-tAusG6rjfyBbL-IPNaXSnxVnRS-FB_aem_6892rfC8ZToNrwhuXxkilQ" target="_blank" style="background: #46178f; color: white; padding: 30px; border-radius: 20px; cursor: pointer; flex: 1; text-decoration: none;">Kahoot! Game</a>
+<a href="https://quizlet.com/vn/1170141804/practice-unit-1-lesson-5-flash-cards/?i=74fsq4&x=1qqt&fbclid=IwY2xjawRf8llleHRuA2FlbQIxMABicmlkETFIZFpVa0VLOUkySFFTR1pFc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHmnkzKZyy7IcBNT2YmSPP-akELDuUwzYmXqEbrYbbdufY5CPqYA4-fBv18MO_aem_SshzX0zrmULUeYwQVBcFeA" target="_blank" class="black-btn" style="flex: 1; justify-content: center;">Quizlet</a>
+<a href="https://create.kahoot.it/share/tu-vung-anhviet-nghia-va-sac-thai-dung-tu/4a16dfe5-e702-4586-844d-7ced16bdd694?fbclid=IwY2xjawRf8llleHRuA2FlbQIxMABicmlkETFIZFpVa0VLOUkySFFTR1pFc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHmnkzKZyy7IcBNT2YmSPP-akELDuUwzYmXqEbrYbbdufY5CPqYA4-fBv18MO_aem_SshzX0zrmULUeYwQVBcFeA" target="_blank" class="black-btn" style="background: #46178f; flex: 1; justify-content: center;">Kahoot!</a>
 </div>
 </div>
 </section>
 </div>
 
+<!-- FOOTER -->
 <footer>
 <div class="footer-grid">
 <div>
@@ -351,16 +328,18 @@ Your browser does not support the audio element.
 </div>
 <div>
 <h3 style="color: var(--accent-yellow);">Quick Navigation</h3>
+<div class="footer-nav">
 <a class="footer-link" onclick="navigateTo('home')">Home</a>
 <a class="footer-link" onclick="navigateTo('about')">About Us</a>
 <a class="footer-link" onclick="navigateTo('learning')">Learning</a>
 <a class="footer-link" onclick="navigateTo('activities')">Activities</a>
 </div>
+</div>
 <div>
 <h3 style="color: var(--accent-yellow);">Contact Us</h3>
 <p>📞 0974 737 262</p>
 <p>📞 0918 825 844</p>
-<p>✉️20232528@eaut.edu.vn</p>
+<p>✉️ 20232528@eaut.edu.vn</p>
 </div>
 </div>
 </footer>
@@ -370,8 +349,7 @@ function navigateTo(id) {
 document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
 document.getElementById(id).classList.add('active');
 document.querySelectorAll('.nav-pill').forEach(p => p.classList.remove('active'));
-const pill = document.getElementById('nav-pill-' + id);
-if(pill) pill.classList.add('active');
+if(document.getElementById('nav-pill-' + id)) document.getElementById('nav-pill-' + id).classList.add('active');
 window.scrollTo(0,0);
 }
 
@@ -382,43 +360,27 @@ document.getElementById('tab-' + idx).classList.add('active');
 document.getElementById('btn-' + idx).classList.add('active');
 }
 
-function selectMC(btn, choice) {
-const parent = btn.parentElement;
-parent.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
-btn.classList.add('selected');
-parent.parentElement.setAttribute('data-user-choice', choice);
-}
-
 function setTick(cell, type) {
 const row = cell.parentElement;
-row.querySelectorAll('.tick-cell').forEach(c => {
-c.classList.remove('selected');
-c.innerHTML = "";
-});
+row.querySelectorAll('.tick-cell').forEach(c => { c.classList.remove('selected'); c.innerHTML = ""; });
 cell.classList.add('selected');
 cell.innerHTML = "✓";
 cell.setAttribute('data-choice', type);
 }
 
-function checkAllAnswers() {
-// Task 2
-document.querySelectorAll('.mc-item').forEach(item => {
-const correctAns = item.getAttribute('data-ans');
-item.querySelectorAll('.option-btn').forEach(btn => {
-btn.classList.remove('correct', 'wrong');
-if(btn.innerHTML.startsWith(correctAns)) btn.classList.add('correct');
-else if(btn.classList.contains('selected')) btn.classList.add('wrong');
-});
-});
-
-// Task 3
+function checkTF() {
 document.querySelectorAll('.tf-table tr[data-ans]').forEach(row => {
 const correctAns = row.getAttribute('data-ans');
-row.querySelectorAll('.tick-cell').forEach(c => {
-c.classList.remove('correct-ans', 'wrong-ans');
-if(c.getAttribute('data-choice') === correctAns && c.classList.contains('selected')) c.classList.add('correct-ans');
-else if(c.classList.contains('selected')) c.classList.add('wrong-ans');
-});
+const id = row.getAttribute('id');
+const selectedCell = row.querySelector('.tick-cell.selected');
+const expRow = document.getElementById('exp-' + id);
+if(selectedCell) {
+const userChoice = selectedCell.getAttribute('data-choice');
+selectedCell.classList.remove('correct-ans', 'wrong-ans');
+if(userChoice === correctAns) { selectedCell.classList.add('correct-ans'); }
+else { selectedCell.classList.add('wrong-ans'); }
+if(expRow) expRow.style.display = 'table-row';
+}
 });
 confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
 }
